@@ -1,19 +1,27 @@
 import { join as joinPaths } from 'path';
 import { app, nativeImage, Menu, Tray } from 'electron';
-import { SEPARATOR, TemplateArray, renderFooter, renderServices } from './utils';
+import {
+  SEPARATOR,
+  TemplateArray,
+  initialiseAutoLaunchManager,
+  renderFooter,
+  renderServices,
+} from './utils';
 import { Events, eventEmitter } from './events';
+import { is } from '@electron-toolkit/utils';
 
 /**
  * Path to macOS tray icon
  */
-const iconPath = joinPaths(__dirname, '../../resources/tray-icon.png');
+const TRAY_ICON_PATH = joinPaths(__dirname, '../../resources/tray-icon.png');
+export const APP_NAME = 'Homebrew Services Tray';
 
 let tray: Tray | null = null;
 
 function createTray(services?: TemplateArray) {
   console.log('Creating tray...');
 
-  const icon = nativeImage.createFromPath(iconPath);
+  const icon = nativeImage.createFromPath(TRAY_ICON_PATH);
   icon.setTemplateImage(true);
 
   tray = new Tray(icon);
@@ -64,4 +72,6 @@ app.whenReady().then(() => {
     console.log('Event:', Events.LIST_SERVICES);
     listServicesAndRender();
   });
+
+  !is.dev && initialiseAutoLaunchManager();
 });
