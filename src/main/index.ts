@@ -23,7 +23,19 @@ function createTray(services?: TemplateArray) {
   });
 
   const footer = renderFooter();
-  const ctxMenu = Menu.buildFromTemplate([...(services ?? []), SEPARATOR, ...footer]);
+  const ctxMenu = Menu.buildFromTemplate([
+    ...(services ?? []),
+    SEPARATOR,
+    ...footer,
+    SEPARATOR,
+    {
+      label: 'Quit',
+      click: () => {
+        console.log('Quitting app...');
+        app.quit();
+      },
+    },
+  ]);
 
   tray.setToolTip('Homebrew services');
   tray.setContextMenu(ctxMenu);
