@@ -56,10 +56,6 @@ export async function renderServices(): Promise<TemplateArray> {
   }));
 }
 
-export function stringToColumns(str: string) {
-  return str.replaceAll(/\s{2,}/g, ' ');
-}
-
 export function runCmd(cmd: string): Promise<string> {
   const cp = exec(cmd);
 

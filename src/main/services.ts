@@ -1,20 +1,15 @@
 import { Events, eventEmitter } from './events';
-import { runCmd, stringToColumns } from './utils';
+import { runCmd } from './utils';
 
 export async function listServices(): Promise<{ [serviceName: string]: boolean }> {
-  const cmd = 'brew services list';
+  const cmd = 'brew services list --json';
 
-  const data = await runCmd(cmd);
-  const [, ...rows] = data.split('\n').map((str) => stringToColumns(str).split(' '));
-
-  return rows.reduce(
-    (prev, [name, status]) =>
-      !name
-        ? prev
-        : {
-            ...prev,
-            [name]: status === 'started',
-          },
+  const data = JSON.parse(await runCmd(cmd));
+  return data.reduce(
+    (prev, { name, status }) => ({
+      ...prev,
+      [name]: status === 'started',
+    }),
     {}
   );
 }
