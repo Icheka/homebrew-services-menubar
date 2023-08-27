@@ -23,7 +23,6 @@ function createTray(services?: TemplateArray) {
   });
 
   const footer = renderFooter();
-
   const ctxMenu = Menu.buildFromTemplate([...(services ?? []), SEPARATOR, ...footer]);
 
   tray.setToolTip('Homebrew services');

@@ -1,7 +1,12 @@
 import { MenuItemConstructorOptions, MenuItem } from 'electron';
 import { exec } from 'child_process';
-import { listServices } from './services';
-import { Events, eventEmitter } from './events';
+import {
+  listServices,
+  restartAllServices,
+  startAllServices,
+  stopAllServices,
+  updateService,
+} from './services';
 
 type Template = MenuItemConstructorOptions | MenuItem;
 export type TemplateArray = Array<Template>;
@@ -16,12 +21,24 @@ export function renderFooter(): TemplateArray {
   return [
     {
       label: 'Start all',
+      click: () => {
+        console.log('Attempting to start all services');
+        startAllServices();
+      },
     },
     {
       label: 'Stop all',
+      click: () => {
+        console.log('Attempting to stop all services');
+        stopAllServices();
+      },
     },
     {
       label: 'Restart all',
+      click: () => {
+        console.log('Attempting to restart all services');
+        restartAllServices();
+      },
     },
   ];
 }
@@ -37,14 +54,6 @@ export async function renderServices(): Promise<TemplateArray> {
       await updateService(service, !status);
     },
   }));
-}
-
-async function updateService(service: string, startService: boolean) {
-  const cmd = `brew services ${startService ? 'start' : 'stop'} ${service}`;
-  try {
-    await runCmd(cmd);
-    eventEmitter.emit(Events.LIST_SERVICES);
-  } catch (err) {}
 }
 
 export function stringToColumns(str: string) {
