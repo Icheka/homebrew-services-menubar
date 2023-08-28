@@ -9,7 +9,7 @@ import {
 } from './services';
 import AutoLaunch from 'auto-launch';
 import settings from 'electron-settings';
-import { APP_NAME } from '.';
+import { APP_NAME } from './index';
 
 const AUTO_LAUNCH_CONFIG_KEY = 'autoLaunch';
 

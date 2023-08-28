@@ -63,7 +63,11 @@ function listServicesAndRender() {
   renderServices().then(updateServicesView);
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
+  const { join } = await import('path');
+  process.env.PATH += ':' + '/Users/icheka/.nvm/versions/node/v16.20.1/bin/node';
+  app.dock.hide();
+
   createTray();
 
   listServicesAndRender();
