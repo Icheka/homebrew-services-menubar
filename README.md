@@ -1,34 +1,46 @@
 # homebrew-services-tray-icon
 
-An Electron application with React and TypeScript
+Start, stop and track installed Homebrew services from your macOS menu bar.
 
-## Recommended IDE Setup
+<center>
+    <img src='docs/image.png' alt='Example' width=250 />
+</center>
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+# How to use
 
-## Project Setup
+- Clone this repo
 
-### Install
+    ```
+    git clone https://github.com/Icheka/homebrew-services-menubar.git
 
-```bash
-$ yarn
+    cd homebrew-services-menubar
+    ```
+
+- Install dependencies
+
+    ```
+    yarn
+    ```
+
+- Run app
+    ```
+    yarn dev
+    ```
+
+# To create a production build
+
+```
+yarn build:mac
 ```
 
-### Development
+**Note**
 
-```bash
-$ yarn dev
-```
+I created this package entirely to solve a problem I had -- tracking running services on my Mac. As is, the app was intended to work **only** on Macs.
 
-### Build
+You can extend it to be used on other platforms, if you like.
 
-```bash
-# For windows
-$ yarn build:win
+You'll find that I left configuration, scripts, etc for both Windows and Linux. This should ease your way if you need to adapt it to a different OS.
 
-# For macOS
-$ yarn build:mac
+## License
 
-# For Linux
-$ yarn build:linux
-```
+[**MIT**](./LICENSE)
